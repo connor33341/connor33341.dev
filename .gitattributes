@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+*.css diff=css
+*.html diff=html
+*.md diff=markdown
+*.php diff=php
+*.blade.php diff=html
+
+CHANGELOG.md export-ignore
+README.md export-ignore
