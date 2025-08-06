@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild'
+import { sassPlugin } from "esbuild-sass-plugin"
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
@@ -38,6 +39,7 @@ const config: esbuild.BuildOptions = {
   jsx: 'automatic',
   jsxDev: isDev,
   plugins: [
+    sassPlugin(),
     {
       name: 'dev-server',
       setup(build) {
