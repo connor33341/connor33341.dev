@@ -6,7 +6,7 @@ const isDev = process.argv.includes('--dev')
 const isWatch = process.argv.includes('--watch')
 
 const config: esbuild.BuildOptions = {
-  entryPoints: ['src/App.tsx'],
+  entryPoints: ['src/index.tsx'],
   bundle: true,
   outdir: 'public/build',
   format: 'esm',
