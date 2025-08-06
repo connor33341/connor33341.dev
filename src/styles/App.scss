@@ -1,247 +1,174 @@
-// Theme Variables
-$primary: (
-  50: #f0f9ff,
-  100: #e0f2fe,
-  200: #bae6fd,
-  300: #7dd3fc,
-  400: #38bdf8,
-  500: #0ea5e9,
-  600: #0284c7,
-  700: #0369a1,
-  800: #075985,
-  900: #0c4a6e
-);
-
-$secondary: (
-  50: #fafafa,
-  100: #f4f4f5,
-  200: #e4e4e7,
-  300: #d4d4d8,
-  400: #a1a1aa,
-  500: #71717a,
-  600: #52525b,
-  700: #3f3f46,
-  800: #27272a,
-  900: #18181b
-);
-
-$accent: (
-  50: #fdf4ff,
-  100: #fae8ff,
-  200: #f5d0fe,
-  300: #f0abfc,
-  400: #e879f9,
-  500: #d946ef,
-  600: #c026d3,
-  700: #a21caf,
-  800: #86198f,
-  900: #701a75
-);
-
-$semantic: (
-  success: (
-    50: #f0fdf4,
-    500: #22c55e,
-    600: #16a34a,
-    700: #15803d
-  ),
-  warning: (
-    50: #fffbeb,
-    500: #f59e0b,
-    600: #d97706,
-    700: #b45309
-  ),
-  error: (
-    50: #fef2f2,
-    500: #ef4444,
-    600: #dc2626,
-    700: #b91c1c
-  ),
-  info: (
-    50: #eff6ff,
-    500: #3b82f6,
-    600: #2563eb,
-    700: #1d4ed8
-  )
-);
-
-$neutral: (
-  white: #ffffff,
-  black: #000000,
-  transparent: transparent
-);
-
-$typography: (
-  font-family: (
-    primary: ('Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif),
-    secondary: ('Poppins', sans-serif),
-    mono: ('Fira Code', 'Monaco', 'Cascadia Code', monospace)
-  ),
-  font-sizes: (
-    xs: 0.75rem,
-    sm: 0.875rem,
-    base: 1rem,
-    lg: 1.125rem,
-    xl: 1.25rem,
-    2xl: 1.5rem,
-    3xl: 1.875rem,
-    4xl: 2.25rem,
-    5xl: 3rem,
-    6xl: 3.75rem
-  ),
-  font-weights: (
-    thin: 100,
-    light: 300,
-    normal: 400,
-    medium: 500,
-    semibold: 600,
-    bold: 700,
-    extrabold: 800,
-    black: 900
-  ),
-  line-heights: (
-    none: 1,
-    tight: 1.25,
-    snug: 1.375,
-    normal: 1.5,
-    relaxed: 1.625,
-    loose: 2
-  )
-);
-
-$spacing: (
-  0: 0,
-  px: 1px,
-  0-5: 0.125rem,
-  1: 0.25rem,
-  1-5: 0.375rem,
-  2: 0.5rem,
-  2-5: 0.625rem,
-  3: 0.75rem,
-  3-5: 0.875rem,
-  4: 1rem,
-  5: 1.25rem,
-  6: 1.5rem,
-  7: 1.75rem,
-  8: 2rem,
-  9: 2.25rem,
-  10: 2.5rem,
-  12: 3rem,
-  14: 3.5rem,
-  16: 4rem,
-  20: 5rem,
-  24: 6rem,
-  32: 8rem
-);
-
-$radius: (
-  none: 0,
-  sm: 0.125rem,
-  base: 0.25rem,
-  md: 0.375rem,
-  lg: 0.5rem,
-  xl: 0.75rem,
-  2xl: 1rem,
-  3xl: 1.5rem,
-  full: 9999px
-);
-
-$shadows: (
-  sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
-  base: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-  base-secondary: 0 1px 2px 0 rgba(0, 0, 0, 0.06),
-  md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-  md-secondary: 0 2px 4px -1px rgba(0, 0, 0, 0.06),
-  lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-  lg-secondary: 0 4px 6px -2px rgba(0, 0, 0, 0.05),
-  xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  xl-secondary: 0 10px 10px -5px rgba(0, 0, 0, 0.04),
-  2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
-  inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)
-);
-
-$z-index: (
-  0: 0,
-  10: 10,
-  20: 20,
-  30: 30,
-  40: 40,
-  50: 50,
-  auto: auto,
-  dropdown: 1000,
-  sticky: 1020,
-  fixed: 1030,
-  modal-backdrop: 1040,
-  modal: 1050,
-  popover: 1060,
-  tooltip: 1070
-);
-
-$transitions: (
-  none: none,
-  all: all 150ms cubic-bezier(0.4, 0, 0.2, 1),
-  color: color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-  background-color: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-  border-color: border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-  opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1),
-  shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1),
-  transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1)
-);
-
-// Use SCSS variables in styles
-body {
-  margin: 0;
-  font-family: map-get(map-get($typography, font-family), primary); // Correct usage
-  color: map-get($neutral, black);
-  background-color: map-get($neutral, white);
-  line-height: map-get(map-get($typography, line-heights), normal); // Correct usage
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@theme {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  
+  --color-secondary-50: #fafafa;
+  --color-secondary-100: #f4f4f5;
+  --color-secondary-200: #e4e4e7;
+  --color-secondary-300: #d4d4d8;
+  --color-secondary-400: #a1a1aa;
+  --color-secondary-500: #71717a;
+  --color-secondary-600: #52525b;
+  --color-secondary-700: #3f3f46;
+  --color-secondary-800: #27272a;
+  --color-secondary-900: #18181b;
+  
+  --color-accent-50: #fdf4ff;
+  --color-accent-100: #fae8ff;
+  --color-accent-200: #f5d0fe;
+  --color-accent-300: #f0abfc;
+  --color-accent-400: #e879f9;
+  --color-accent-500: #d946ef;
+  --color-accent-600: #c026d3;
+  --color-accent-700: #a21caf;
+  --color-accent-800: #86198f;
+  --color-accent-900: #701a75;
+  
+  --color-success-50: #f0fdf4;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  
+  --color-warning-50: #fffbeb;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  
+  --color-error-50: #fef2f2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+  
+  --color-info-50: #eff6ff;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+  --color-info-700: #1d4ed8;
+  
+  --font-family-primary: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-secondary: Poppins, sans-serif;
+  --font-family-mono: "Fira Code", Monaco, "Cascadia Code", monospace;
+  
+  --spacing-0: 0px;
+  --spacing-px: 1px;
+  --spacing-0\.5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-1\.5: 0.375rem;
+  --spacing-2: 0.5rem;
+  --spacing-2\.5: 0.625rem;
+  --spacing-3: 0.75rem;
+  --spacing-3\.5: 0.875rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-28: 7rem;
+  --spacing-32: 8rem;
+  --spacing-36: 9rem;
+  --spacing-40: 10rem;
+  --spacing-44: 11rem;
+  --spacing-48: 12rem;
+  --spacing-52: 13rem;
+  --spacing-56: 14rem;
+  --spacing-60: 15rem;
+  --spacing-64: 16rem;
+  --spacing-72: 18rem;
+  --spacing-80: 20rem;
+  --spacing-96: 24rem;
 }
 
-// Dark theme override
-@media (prefers-color-scheme: dark) {
+@layer base {
+  body {
+    margin: 0;
+    font-family: var(--font-family-primary);
+    color: black;
+    background-color: white;
+    line-height: 1.5;
+  }
+
   :root {
-    --bg-primary: map-get($secondary, 900);
-    --bg-secondary: map-get($secondary, 800);
-    --bg-tertiary: map-get($secondary, 700);
-    --bg-inverse: map-get($neutral, white);
-
-    --text-primary: map-get($secondary, 100);
-    --text-secondary: map-get($secondary, 300);
-    --text-tertiary: map-get($secondary, 500);
-    --text-inverse: map-get($secondary, 900);
-
-    --border-light: map-get($secondary, 700);
-    --border-medium: map-get($secondary, 600);
-    --border-dark: map-get($secondary, 500);
+    --header-height: 4rem;
   }
 }
 
-// Base styles
-/*body {
-  margin: 0;
-  font-family: map-get($typography, font-family).primary;
-  color: map-get($neutral, black);
-  background-color: map-get($neutral, white);
-  line-height: map-get($typography, line-heights).normal;
-}*/
+@layer components {
+  .header {
+    background-color: var(--color-secondary-800);
+    color: white;
+    height: var(--header-height);
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      
+      a {
+        color: var(--color-accent-400);
+        text-decoration: none;
+        transition: color 0.2s;
+        
+        &:hover {
+          color: var(--color-primary-500);
+        }
+      }
+    }
+  }
+}
 
-// Example of nesting (if applicable in your project)
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #18181b;
+    --bg-secondary: #27272a;
+    --bg-tertiary: #3f3f46;
+    --bg-inverse: #ffffff;
+
+    --text-primary: #f4f4f5;
+    --text-secondary: #d4d4d8;
+    --text-tertiary: #71717a;
+    --text-inverse: #18181b;
+
+    --border-light: #3f3f46;
+    --border-medium: #52525b;
+    --border-dark: #71717a;
+  }
+}
+
 header {
   height: var(--header-height);
-  background-color: var(--bg-secondary);
-  color: var(--text-inverse);
+  background-color: var(--color-secondary-800);
+  color: white;
 
   nav {
     display: flex;
     justify-content: space-between;
-    padding: var(--space-4);
+    padding: 1rem;
 
     a {
-      color: var(--text-accent);
+      color: var(--color-accent-400);
       text-decoration: none;
-
+      transition: color 0.2s;
+      
       &:hover {
-        color: var(--primary-500);
+        color: var(--color-primary-500);
       }
     }
   }

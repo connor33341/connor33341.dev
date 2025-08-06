@@ -1,7 +1,9 @@
 import * as esbuild from 'esbuild'
-import { sassPlugin } from "esbuild-sass-plugin"
+import postcssPlugin from 'esbuild-postcss'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
+import tailwindcss from '@tailwindcss/postcss'
+import autoprefixer from 'autoprefixer'
 
 const isDev = process.argv.includes('--dev')
 const isWatch = process.argv.includes('--watch')
@@ -39,7 +41,13 @@ const config: esbuild.BuildOptions = {
   jsx: 'automatic',
   jsxDev: isDev,
   plugins: [
-    sassPlugin(),
+    postcssPlugin({
+      parser: 'postcss-scss',
+      plugins: [
+        tailwindcss,
+        autoprefixer,
+      ],
+    }),
     {
       name: 'dev-server',
       setup(build) {
@@ -68,7 +76,7 @@ if (isDev && isWatch) {
     host: 'localhost',
   })
   
-  console.log(`🚀 Dev server running at http://${host}:${port}`)
+  console.log(`🚀 Dev server running at http://localhost:${port}`)
   
   // Watch for changes
   await ctx.watch()
