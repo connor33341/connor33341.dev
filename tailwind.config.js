@@ -4,7 +4,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx,html}",
     "./public/index.html"
   ],
-  darkMode: 'media',
+  darkMode: 'class',
   plugins: [
     require('tailwindcss-animate')
   ]

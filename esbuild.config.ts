@@ -1,9 +1,11 @@
 import * as esbuild from 'esbuild'
-import postcssPlugin from 'esbuild-postcss'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import tailwindcss from '@tailwindcss/postcss'
 import autoprefixer from 'autoprefixer'
+import postcss from 'postcss'
+import postcssScss from 'postcss-scss'
+import * as sass from 'sass'
 
 const isDev = process.argv.includes('--dev')
 const isWatch = process.argv.includes('--watch')
@@ -28,6 +30,7 @@ const config: esbuild.BuildOptions = {
     '.jsx': 'jsx',
     '.js': 'js',
     '.css': 'css',
+    '.scss': 'css',
     '.png': 'file',
     '.jpg': 'file',
     '.jpeg': 'file',
@@ -41,13 +44,43 @@ const config: esbuild.BuildOptions = {
   jsx: 'automatic',
   jsxDev: isDev,
   plugins: [
-    postcssPlugin({
-      parser: 'postcss-scss',
-      plugins: [
-        tailwindcss,
-        autoprefixer,
-      ],
-    }),
+    {
+      name: 'scss-processor',
+      setup(build) {
+        build.onLoad({ filter: /\.scss$/ }, async (args) => {
+          try {
+            // First compile SCSS to CSS with proper import paths
+            const result = sass.compile(args.path, {
+              style: 'expanded',
+              sourceMap: isDev,
+              loadPaths: ['node_modules'],
+            })
+            
+            // Then process with PostCSS/Tailwind
+            const postcssResult = await postcss([
+              tailwindcss,
+              autoprefixer,
+            ]).process(result.css, {
+              from: args.path,
+              map: isDev ? { inline: false } : false,
+            })
+            
+            return {
+              contents: postcssResult.css,
+              loader: 'css',
+            }
+          } catch (error) {
+            console.error('SCSS compilation error:', error)
+            return {
+              errors: [{
+                text: error.message,
+                location: null,
+              }]
+            }
+          }
+        })
+      },
+    },
     {
       name: 'dev-server',
       setup(build) {
