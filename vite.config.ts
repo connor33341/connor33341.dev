@@ -12,6 +12,14 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    server: {
+        host: 'localhost',
+        port: 5173,
+        strictPort: false,
+        hmr: {
+            port: 5174
+        }
+    },
     build: {
         rollupOptions: {
             input: 'src/index.tsx'
