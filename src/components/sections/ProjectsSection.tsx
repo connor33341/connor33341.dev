@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 interface ProjectsSectionProps {
     scrollY: number;
@@ -7,7 +7,41 @@ interface ProjectsSectionProps {
 export function ProjectsSection({ scrollY }: ProjectsSectionProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const isVisible = scrollY > (sectionRef.current?.offsetTop || 0) - 500;
+    
+    const [projects, setProjects] = useState<Array<{
+        title: string;
+        description: string;
+        image: string;
+        technologies: string[];
+        liveUrl?: string;
+        githubUrl: string;
+    }>>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch('https://legacy.connor33341.dev/static/config/projects.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setProjects(data);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Failed to fetch projects');
+                console.error('Error fetching projects:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
+    /*
+    // List from a friend
     const projects = [
         {
             title: 'EduPage2',
@@ -33,6 +67,7 @@ export function ProjectsSection({ scrollY }: ProjectsSectionProps) {
             githubUrl: 'https://github.com/vyPal/VM',
         },
     ];
+    */
 
     return (
         <section ref={sectionRef} className="py-20 md:py-32" id="projects">
@@ -54,11 +89,27 @@ export function ProjectsSection({ scrollY }: ProjectsSectionProps) {
                         Here are some of my most recent projects. Most aren't completed yet, but are in a pretty usable state.
                     </p>
 
-                    <div className="space-y-20">
-                        {projects.map((project, index) => (
-                            <ProjectCard key={index} project={project} isVisible={isVisible} index={index} />
-                        ))}
-                    </div>
+                    {loading && (
+                        <div className="flex justify-center items-center py-12">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8847BB]"></div>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="text-center py-12">
+                            <p className="text-red-500 dark:text-red-400">
+                                Failed to load projects: {error}
+                            </p>
+                        </div>
+                    )}
+
+                    {!loading && !error && (
+                        <div className="space-y-20">
+                            {projects.map((project, index) => (
+                                <ProjectCard key={index} project={project} isVisible={isVisible} index={index} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </section>

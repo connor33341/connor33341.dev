@@ -120,7 +120,17 @@ const Home: React.FC = () => {
                     {/* Projects */}
                     <ProjectsSection scrollY={scrollY} />
 
-                    
+                    {/* Latest Poll Section */}
+                    {/*<LatestPollSection scrollY={scrollY} />*/}
+
+                    {/* Open Source Contributions */}
+                    <ContributionsSection scrollY={scrollY} />
+
+                    {/* GitHub Organizations */}
+                    {/*<OrganizationsSection scrollY={scrollY} />*/}
+
+                    {/* Contact */}
+                    {/*<ContactSection scrollY={scrollY} />*/}
                 </main>
             )}
         </>
