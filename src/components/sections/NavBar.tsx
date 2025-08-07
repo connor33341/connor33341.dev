@@ -82,8 +82,8 @@ export function NavBar({ auth }: NavBarProps) {
                             <Link href={route('apps.index')} className="text-sm transition-colors hover:text-[#8847BB] dark:hover:text-[#F9BAEE]">
                                 Apps
                             </Link>
-                            <Link href={route('public-polls.index')} className="text-sm transition-colors hover:text-[#8847BB] dark:hover:text-[#F9BAEE]">
-                                Polls
+                            <Link href="https://legacy.connor33341.dev" className="text-sm transition-colors hover:text-[#8847BB] dark:hover:text-[#F9BAEE]">
+                                Legacy Site
                             </Link>
                         </div>
 
