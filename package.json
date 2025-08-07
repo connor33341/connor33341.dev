@@ -3,6 +3,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
+        "build:esbuild": "tsx esbuild.config.ts",
         "build:ssr": "vite build && vite build --ssr",
         "dev": "vite",
         "dev:esbuild": "tsx esbuild.config.ts --dev --watch",
