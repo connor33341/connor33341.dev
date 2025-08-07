@@ -29,7 +29,7 @@ export function AboutSection({ scrollY }: AboutSectionProps) {
                             <div className="relative">
                                 <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-[#5E4290] to-[#F9BAEE] opacity-30 blur" />
                                 <div className="relative aspect-square overflow-hidden rounded-lg bg-[#e3e3e0] dark:bg-[#1C1C1A]">
-                                    <img src="/media/pfp.png" alt="Your Name" className="h-full w-full object-cover" />
+                                    <img src="/media/pfp.png" alt="X Profile Picture" className="h-full w-full object-cover" />
                                 </div>
                             </div>
                         </div>
