@@ -75,33 +75,37 @@ export function ProjectsSection({ scrollY }: ProjectsSectionProps) {
     */
 
     return (
-        <section ref={sectionRef} className="py-20 md:py-32" id="projects">
+        <section ref={sectionRef} className="py-20 md:py-32 bg-[var(--background)] transition-colors duration-300" id="projects">
             <div className="container mx-auto px-6">
                 <div className="mx-auto max-w-5xl">
-                    <h2
-                        className={`mb-4 text-3xl font-bold transition-all duration-700 md:text-4xl ${
-                            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                        }`}
-                    >
-                        My <span className="text-[#8847BB] dark:text-[#8847BB]">Projects</span>
-                    </h2>
+                    <div className="neu-card text-center mb-16">
+                        <h2
+                            className={`mb-4 text-3xl font-bold transition-all duration-700 md:text-4xl ${
+                                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                            }`}
+                        >
+                            My <span className="bg-gradient-to-r from-[#8847BB] to-[#F9BAEE] bg-clip-text text-transparent">Projects</span>
+                        </h2>
 
-                    <p
-                        className={`mb-12 max-w-2xl text-[#706f6c] transition-all delay-200 duration-700 dark:text-[#A1A09A] ${
-                            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                        }`}
-                    >
-                        Here are some of my most recent projects. Most aren't completed yet, but are in a pretty usable state.
-                    </p>
+                        <p
+                            className={`mb-6 max-w-2xl mx-auto text-[#706f6c] transition-all delay-200 duration-700 dark:text-[#A1A09A] ${
+                                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                            }`}
+                        >
+                            Here are some of my most recent projects. Most aren't completed yet, but are in a pretty usable state.
+                        </p>
+                    </div>
 
                     {loading && (
-                        <div className="flex justify-center items-center py-12">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8847BB]"></div>
+                        <div className="neu-card flex justify-center items-center py-12">
+                            <div className="neu-circle" style={{ width: '32px', height: '32px' }}>
+                                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#8847BB] mx-auto mt-1"></div>
+                            </div>
                         </div>
                     )}
 
                     {error && (
-                        <div className="text-center py-12">
+                        <div className="neu-card text-center py-12">
                             <p className="text-red-500 dark:text-red-400">
                                 Failed to load projects: {error}
                             </p>
@@ -141,69 +145,80 @@ function ProjectCard({ project, isVisible, index }: ProjectCardProps) {
 
     return (
         <div
-            className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 transition-all duration-1000 ${
+            className={`neu-card neu-card-interactive transition-all duration-1000 ${
                 isVisible ? 'translate-x-0 opacity-100' : `opacity-0 ${translateX}`
             }`}
             style={{ transitionDelay: `${delay}ms` }}
         >
-            <a className="md:w-1/2" href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <div className="group relative">
-                    <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-[#5E4290] to-[#F9BAEE] opacity-30 blur transition-opacity group-hover:opacity-50" />
-                    <div className="relative overflow-hidden rounded-lg">
-                        <img src={project.image} alt={project.title} className="w-full transition-transform duration-500 group-hover:scale-105" />
+            <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8`}>
+                <a className="md:w-1/2" href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <div className="group relative">
+                        <div className="neu-surface overflow-hidden rounded-lg p-2">
+                            <img 
+                                src={project.image} 
+                                alt={project.title} 
+                                className="w-full transition-transform duration-500 group-hover:scale-105 rounded-md" 
+                            />
+                        </div>
+                        <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-[#5E4290] to-[#F9BAEE] opacity-0 blur transition-opacity group-hover:opacity-20 -z-10" />
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <div className="md:w-1/2">
-                <h3 className="mb-3 text-2xl font-bold">{project.title}</h3>
-                <p className="mb-5 text-[#706f6c] dark:text-[#A1A09A]">{project.description}</p>
+                <div className="md:w-1/2">
+                    <h3 className="mb-3 text-2xl font-bold">{project.title}</h3>
+                    <p className="mb-5 text-[#706f6c] dark:text-[#A1A09A]">{project.description}</p>
 
-                <div className="mb-8 flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                        <span
-                            key={techIndex}
-                            className="rounded-full bg-[#e3e3e0] px-3 py-1 text-xs font-medium text-[#1b1b18] dark:bg-[#1C1C1A] dark:text-[#EDEDEC]"
+                    <div className="mb-8 flex flex-wrap gap-3">
+                        {project.technologies.map((tech, techIndex) => (
+                            <span
+                                key={techIndex}
+                                className="neu-surface px-4 py-2 text-xs font-medium rounded-full"
+                            >
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="flex gap-4">
+                        {project.liveUrl && (
+                            <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="neu-button neu-button-primary flex items-center text-sm font-medium"
+                            >
+                                <span>View Live</span>
+                                <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
+                                    <path
+                                        d="M13.3334 8.00004V12.6667C13.3334 13.0203 13.1929 13.3595 12.9429 13.6095C12.6928 13.8595 12.3537 14 12.0001 14H3.33341C2.97979 14 2.64067 13.8595 2.39063 13.6095C2.14058 13.3595 2.00008 13.0203 2.00008 12.6667V4.00004C2.00008 3.64642 2.14058 3.3073 2.39063 3.05725C2.64067 2.80721 2.97979 2.66671 3.33341 2.66671H8.00008"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <path d="M10.6666 2H14.0000V5.33333" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M6.66675 9.33333L14.0001 2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </a>
+                        )}
+
+                        <a 
+                            href={project.githubUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="neu-button flex items-center text-sm font-medium"
                         >
-                            {tech}
-                        </span>
-                    ))}
-                </div>
-
-                <div className="flex gap-4">
-                    {project.liveUrl && (
-                        <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center text-sm font-medium text-[#8847BB] hover:text-[#8847BB]/65 dark:text-[#8847BB] dark:hover:text-[#F9BAEE]"
-                        >
-                            <span>View Live</span>
-                            <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
+                            <span>Source Code</span>
+                            <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
+                                <path d="M6 8L2.66667 11.3333L6 14.6667" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
                                 <path
-                                    d="M13.3334 8.00004V12.6667C13.3334 13.0203 13.1929 13.3595 12.9429 13.6095C12.6928 13.8595 12.3537 14 12.0001 14H3.33341C2.97979 14 2.64067 13.8595 2.39063 13.6095C2.14058 13.3595 2.00008 13.0203 2.00008 12.6667V4.00004C2.00008 3.64642 2.14058 3.3073 2.39063 3.05725C2.64067 2.80721 2.97979 2.66671 3.33341 2.66671H8.00008"
+                                    d="M2.66675 11.3333H10.0001C11.4145 11.3333 12.7711 10.7714 13.7713 9.77124C14.7715 8.77104 15.3334 7.41449 15.3334 6.00004C15.3334 4.58559 14.7715 3.22904 13.7713 2.22885C12.7711 1.22866 11.4145 0.666707 10.0001 0.666707H6.66675"
                                     stroke="currentColor"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 />
-                                <path d="M10.6666 2H14.0000V5.33333" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M6.66675 9.33333L14.0001 2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </a>
-                    )}
-
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm font-medium">
-                        <span>Source Code</span>
-                        <svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                            <path d="M6 8L2.66667 11.3333L6 14.6667" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-                            <path
-                                d="M2.66675 11.3333H10.0001C11.4145 11.3333 12.7711 10.7714 13.7713 9.77124C14.7715 8.77104 15.3334 7.41449 15.3334 6.00004C15.3334 4.58559 14.7715 3.22904 13.7713 2.22885C12.7711 1.22866 11.4145 0.666707 10.0001 0.666707H6.66675"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>

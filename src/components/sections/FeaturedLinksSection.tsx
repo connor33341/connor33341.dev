@@ -102,7 +102,7 @@ export function FeaturedLinksSection({ scrollY }: FeaturedLinksSectionProps) {
     ];
 
     return (
-        <section ref={sectionRef} className="relative py-16 sm:py-24" id="featured-links">
+        <section ref={sectionRef} className="relative py-16 sm:py-24 bg-[var(--background)] transition-colors duration-300" id="featured-links">
             {/* Background design element with animation */}
             <div className="absolute inset-0 overflow-hidden">
                 <div

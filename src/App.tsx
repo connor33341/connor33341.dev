@@ -11,7 +11,7 @@ const AppContent: React.FC = () => {
   const { isLoading } = useLoading();
 
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-[var(--background)] transition-colors duration-300">
       {!isLoading && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />

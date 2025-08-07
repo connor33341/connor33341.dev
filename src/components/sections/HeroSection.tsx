@@ -10,78 +10,127 @@ export function HeroSection({ scrollY }: HeroSectionProps) {
     const translateY = scrollY * 0.3;
 
     return (
-        <section className="relative flex h-screen items-center justify-center overflow-hidden" id="home">
+        <section className="relative flex h-screen items-center justify-center overflow-hidden bg-[var(--background)] transition-colors duration-300" id="home">
+            {/* Neumorphic background with subtle gradient */}
             <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-[#f5f5f3] to-[#FDFDFC] dark:from-[#0d0d0d] dark:to-[#0a0a0a]"
-                style={{ opacity: 1 }}
+                className="absolute inset-0 z-0"
+                style={{ 
+                    opacity: 1,
+                    background: `
+                        radial-gradient(circle at 30% 20%, var(--background) 0%, 
+                        color-mix(in oklch, var(--background) 95%, var(--accent)) 50%, 
+                        var(--background) 100%)
+                    `
+                }}
             />
 
-            {/* Decorative elements that move with scroll */}
+            {/* Large neumorphic decorative circles */}
             <div
-                className="absolute top-[20%] right-[5%] h-64 w-64 rounded-full bg-[#5E4290]/10 dark:bg-[#5E4290]/10"
-                style={{ transform: `translateY(${translateY * 0.7}px)` }}
+                className="absolute top-[15%] right-[8%] neu-circle neu-circle-large opacity-60"
+                style={{ 
+                    transform: `translateY(${translateY * 0.7}px)`,
+                    background: `linear-gradient(145deg, 
+                        color-mix(in oklch, var(--secondary) 95%, white),
+                        color-mix(in oklch, var(--secondary) 105%, black)
+                    )`
+                }}
             />
             <div
-                className="absolute bottom-[20%] left-[10%] h-40 w-40 rounded-full bg-[#5E4290]/20 dark:bg-[#5E4290]/25"
-                style={{ transform: `translateY(${translateY * 0.4}px)` }}
+                className="absolute bottom-[15%] left-[12%] neu-circle opacity-50"
+                style={{ 
+                    transform: `translateY(${translateY * 0.4}px)`,
+                    width: '150px',
+                    height: '150px',
+                    background: `linear-gradient(145deg, 
+                        color-mix(in oklch, var(--accent) 95%, white),
+                        color-mix(in oklch, var(--accent) 105%, black)
+                    )`
+                }}
+            />
+            
+            {/* Smaller floating neumorphic elements */}
+            <div
+                className="absolute top-[40%] left-[5%] neu-surface opacity-40"
+                style={{ 
+                    transform: `translateY(${translateY * 0.6}px) rotate(45deg)`,
+                    width: '60px',
+                    height: '60px'
+                }}
+            />
+            <div
+                className="absolute top-[25%] left-[85%] neu-surface opacity-30"
+                style={{ 
+                    transform: `translateY(${translateY * 0.8}px) rotate(-30deg)`,
+                    width: '40px',
+                    height: '40px'
+                }}
             />
 
+            {/* Main content in neumorphic container */}
             <div
-                className="relative z-10 container mx-auto px-6 text-center"
+                className="relative z-10 container mx-auto px-6"
                 style={{
                     transform: `translateY(${translateY * 0.2}px)`,
                     opacity,
                 }}
             >
-                <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-                    Hi, I'm <span className="text-[#8847BB] dark:text-[#8847BB]">Connor W</span>
-                </h1>
-                <p className="mx-auto mb-10 max-w-2xl text-xl text-[#706f6c] dark:text-[#A1A09A]">
-                    A computer nerd, who enjoys pretty much anything related to technology, from coding to gaming, and everything in between.
-                </p>
+                <div className="neu-card neu-card-interactive mx-auto max-w-4xl text-center backdrop-blur-sm">
+                    <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
+                        Hi, I'm <span className="bg-gradient-to-r from-[#8847BB] to-[#F9BAEE] bg-clip-text text-transparent">Connor W</span>
+                    </h1>
+                    <p className="mx-auto mb-10 max-w-2xl text-xl text-[#706f6c] dark:text-[#A1A09A]">
+                        A computer nerd, who enjoys pretty much anything related to technology, from coding to gaming, and everything in between.
+                    </p>
 
-                <div className="flex flex-wrap justify-center gap-4">
-                    <SmoothScrollLink
-                        href="#projects"
-                        className="rounded-md bg-[#1b1b18] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-black dark:bg-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white"
-                    >
-                        View My Work
-                    </SmoothScrollLink>
-                    <SmoothScrollLink
-                        href="#contact"
-                        className="rounded-md border border-[#19140035] px-6 py-3 text-sm font-medium transition-all hover:border-[#1915014a] dark:border-[#3E3E3A] dark:hover:border-[#62605b]"
-                    >
-                        Contact Me
-                    </SmoothScrollLink>
-                </div>
+                    <div className="flex flex-wrap justify-center gap-6">
+                        <SmoothScrollLink
+                            href="#projects"
+                            className="neu-button neu-button-primary font-medium"
+                        >
+                            View My Work
+                        </SmoothScrollLink>
+                        <SmoothScrollLink
+                            href="#contact"
+                            className="neu-button font-medium"
+                        >
+                            Contact Me
+                        </SmoothScrollLink>
+                    </div>
 
-                <div className="mt-16 flex justify-center space-x-6">
-                    <SocialIcon href="https://github.com/connor33341" type="github" />
-                    <SocialIcon href="https://linkedin.com/in/NOTUSEDYET" type="linkedin" />
-                    <SocialIcon href="https://twitter.com/Connor33341" type="twitter" />
+                    <div className="mt-16 flex justify-center space-x-8">
+                        <SocialIcon href="https://github.com/connor33341" type="github" />
+                        <SocialIcon href="https://linkedin.com/in/NOTUSEDYET" type="linkedin" />
+                        <SocialIcon href="https://twitter.com/Connor33341" type="twitter" />
+                    </div>
                 </div>
             </div>
 
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
+            {/* Neumorphic scroll indicator */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+                <div className="neu-surface p-3 rounded-full animate-bounce">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </div>
             </div>
 
+            {/* Neumorphic floating action button */}
             <div className="animate-bounce-slow absolute right-6 bottom-6">
                 <Link
                     href="/utils"
-                    className="group flex items-center space-x-2 rounded-full bg-white/80 px-4 py-2 shadow-md backdrop-blur-sm transition-all hover:bg-white hover:shadow-lg dark:bg-[#161615]/80 dark:hover:bg-[#161615]"
+                    className="neu-card group flex items-center space-x-3 px-5 py-3 backdrop-blur-sm"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="text-primary h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+                    <div className="neu-surface p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="text-primary h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                            />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
                     <span className="text-sm font-medium">Developer Tools</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -109,11 +158,11 @@ function SocialIcon({ href, type }: SocialIconProps) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group h-10 w-10 rounded-full border border-[#e3e3e0] bg-[#FDFDFC] p-2 transition-all hover:border-[#19140035] hover:shadow-md dark:border-[#3E3E3A] dark:bg-[#0a0a0a] dark:hover:border-[#62605b]"
+            className="group neu-surface h-10 w-10 rounded-full p-2 transition-all hover:scale-110"
         >
             {type === 'github' && (
                 <svg
-                    className="h-full w-full text-[#1b1b18] group-hover:text-[#F9BAEE] dark:text-[#EDEDEC] dark:group-hover:text-[#F9BAEE]"
+                    className="h-full w-full text-[#1b1b18] group-hover:text-[#8847BB] dark:text-[#EDEDEC] dark:group-hover:text-[#F9BAEE]"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                 >
@@ -122,7 +171,7 @@ function SocialIcon({ href, type }: SocialIconProps) {
             )}
             {type === 'linkedin' && (
                 <svg
-                    className="h-full w-full text-[#1b1b18] group-hover:text-[#F9BAEE] dark:text-[#EDEDEC] dark:group-hover:text-[#F9BAEE]"
+                    className="h-full w-full text-[#1b1b18] group-hover:text-[#8847BB] dark:text-[#EDEDEC] dark:group-hover:text-[#F9BAEE]"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                 >
@@ -131,7 +180,7 @@ function SocialIcon({ href, type }: SocialIconProps) {
             )}
             {type === 'twitter' && (
                 <svg
-                    className="h-full w-full text-[#1b1b18] group-hover:text-[#F9BAEE] dark:text-[#EDEDEC] dark:group-hover:text-[#F9BAEE]"
+                    className="h-full w-full text-[#1b1b18] group-hover:text-[#8847BB] dark:text-[#EDEDEC] dark:group-hover:text-[#F9BAEE]"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                 >

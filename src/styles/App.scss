@@ -140,8 +140,278 @@ $color-sidebar-dark: oklch(0.205 0 0);
 }
 
 @layer base {
+    html {
+        background-color: var(--background);
+        min-height: 100vh;
+    }
+
     body {
         background-color: var(--background);
         color: var(--foreground);
+        min-height: 100vh;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    * {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+}
+
+// Neumorphism/Soft UI Mixins
+@mixin neu-surface {
+    background: var(--background);
+    border-radius: var(--radius);
+    box-shadow: 
+        8px 8px 16px rgba(0, 0, 0, 0.1),
+        -8px -8px 16px rgba(255, 255, 255, 0.8);
+    
+    .dark & {
+        box-shadow: 
+            8px 8px 16px rgba(0, 0, 0, 0.4),
+            -8px -8px 16px rgba(255, 255, 255, 0.02);
+    }
+}
+
+@mixin neu-inset {
+    background: var(--background);
+    border-radius: var(--radius);
+    box-shadow: 
+        inset 6px 6px 12px rgba(0, 0, 0, 0.1),
+        inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+    
+    .dark & {
+        box-shadow: 
+            inset 6px 6px 12px rgba(0, 0, 0, 0.4),
+            inset -6px -6px 12px rgba(255, 255, 255, 0.02);
+    }
+}
+
+@mixin neu-raised {
+    background: var(--background);
+    border-radius: var(--radius);
+    box-shadow: 
+        12px 12px 24px rgba(0, 0, 0, 0.15),
+        -12px -12px 24px rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    
+    .dark & {
+        box-shadow: 
+            12px 12px 24px rgba(0, 0, 0, 0.5),
+            -12px -12px 24px rgba(255, 255, 255, 0.03);
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 
+            16px 16px 32px rgba(0, 0, 0, 0.2),
+            -16px -16px 32px rgba(255, 255, 255, 0.95);
+        
+        .dark & {
+            box-shadow: 
+                16px 16px 32px rgba(0, 0, 0, 0.6),
+                -16px -16px 32px rgba(255, 255, 255, 0.04);
+        }
+    }
+}
+
+// Neumorphism/Soft UI Components
+@layer components {
+    // Base neumorphic surface
+    .neu-surface {
+        @include neu-surface;
+    }
+
+    // Inset (pressed) neumorphic effect
+    .neu-inset {
+        @include neu-inset;
+    }
+
+    // Floating/raised neumorphic effect
+    .neu-raised {
+        @include neu-raised;
+    }
+
+    // Neumorphic button
+    .neu-button {
+        @include neu-surface;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        color: var(--foreground);
+        
+        // Enhanced visibility for base button
+        background: linear-gradient(145deg, 
+            color-mix(in oklch, var(--background) 98%, white),
+            color-mix(in oklch, var(--background) 102%, black)
+        );
+
+        &:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(145deg, 
+                color-mix(in oklch, var(--background) 96%, white),
+                color-mix(in oklch, var(--background) 104%, black)
+            );
+        }
+
+        &:active {
+            @include neu-inset;
+            transform: translateY(1px);
+        }
+
+        // Primary button variant
+        &.neu-button-primary {
+            background: linear-gradient(145deg, 
+                var(--primary),
+                color-mix(in oklch, var(--primary) 85%, black)
+            );
+            color: white;
+            font-weight: 600;
+            
+            box-shadow: 
+                8px 8px 16px color-mix(in oklch, var(--primary) 70%, black),
+                -8px -8px 16px color-mix(in oklch, var(--primary) 120%, white),
+                inset 1px 1px 3px rgba(255, 255, 255, 0.2);
+
+            .dark & {
+                background: linear-gradient(145deg, 
+                    color-mix(in oklch, var(--primary) 110%, white),
+                    var(--primary)
+                );
+                box-shadow: 
+                    8px 8px 16px color-mix(in oklch, var(--primary) 60%, black),
+                    -8px -8px 16px color-mix(in oklch, var(--primary) 130%, white),
+                    inset 1px 1px 3px rgba(255, 255, 255, 0.1);
+            }
+
+            &:hover {
+                background: linear-gradient(145deg, 
+                    color-mix(in oklch, var(--primary) 110%, white),
+                    color-mix(in oklch, var(--primary) 80%, black)
+                );
+                
+                .dark & {
+                    background: linear-gradient(145deg, 
+                        color-mix(in oklch, var(--primary) 120%, white),
+                        color-mix(in oklch, var(--primary) 95%, white)
+                    );
+                }
+            }
+        }
+
+        // Secondary button variant
+        &.neu-button-secondary {
+            background: linear-gradient(145deg, 
+                color-mix(in oklch, var(--secondary) 90%, white),
+                color-mix(in oklch, var(--secondary) 110%, black)
+            );
+            color: var(--secondary-foreground);
+            
+            box-shadow: 
+                8px 8px 16px color-mix(in oklch, var(--secondary) 80%, black),
+                -8px -8px 16px color-mix(in oklch, var(--secondary) 120%, white);
+
+            .dark & {
+                box-shadow: 
+                    8px 8px 16px color-mix(in oklch, var(--secondary) 70%, black),
+                    -8px -8px 16px color-mix(in oklch, var(--secondary) 130%, white);
+            }
+        }
+    }
+
+    // Neumorphic card
+    .neu-card {
+        @include neu-raised;
+        padding: 2rem;
+        background: var(--card);
+        
+        &.neu-card-interactive {
+            cursor: pointer;
+            
+            &:hover {
+                transform: translateY(-4px);
+            }
+        }
+    }
+
+    // Neumorphic input
+    .neu-input {
+        @include neu-inset;
+        padding: 0.75rem 1rem;
+        border: none;
+        background: var(--background);
+        color: var(--foreground);
+        
+        &:focus {
+            outline: none;
+            box-shadow: 
+                inset 8px 8px 16px rgba(0, 0, 0, 0.15),
+                inset -8px -8px 16px rgba(255, 255, 255, 0.9),
+                0 0 0 2px var(--primary);
+            
+            .dark & {
+                box-shadow: 
+                    inset 8px 8px 16px rgba(0, 0, 0, 0.5),
+                    inset -8px -8px 16px rgba(255, 255, 255, 0.03),
+                    0 0 0 2px var(--primary);
+            }
+        }
+    }
+
+    // Neumorphic circular elements
+    .neu-circle {
+        border-radius: 50%;
+        @include neu-surface;
+        
+        &.neu-circle-large {
+            width: 200px;
+            height: 200px;
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.1),
+                -20px -20px 40px rgba(255, 255, 255, 0.8);
+            
+            .dark & {
+                box-shadow: 
+                    20px 20px 40px rgba(0, 0, 0, 0.4),
+                    -20px -20px 40px rgba(255, 255, 255, 0.02);
+            }
+        }
+    }
+
+    // Neumorphic navigation
+    .neu-nav {
+        @include neu-surface;
+        backdrop-filter: blur(10px);
+        background: color-mix(in oklch, var(--background) 90%, transparent);
+        border: 1px solid color-mix(in oklch, var(--border) 50%, transparent);
+    }
+
+    // Neumorphic progress/loading bars
+    .neu-progress {
+        @include neu-inset;
+        height: 8px;
+        position: relative;
+        overflow: hidden;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: inherit;
+            box-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.2),
+                -2px -2px 4px rgba(255, 255, 255, 0.6);
+            
+            .dark & {
+                box-shadow: 
+                    2px 2px 4px rgba(0, 0, 0, 0.4),
+                    -2px -2px 4px rgba(255, 255, 255, 0.02);
+            }
+        }
     }
 }

@@ -104,7 +104,7 @@ const Home: React.FC = () => {
             {isLoading ? (<div className="bg-[#252522] fixed inset-0 flex items-center justify-center">
                 <canvas ref={canvasRef} className="absolute inset-0" />
             </div>) : (
-                <main className="overflow-hidden">
+                <main className="overflow-hidden bg-[var(--background)] transition-colors duration-300 min-h-screen">
 
                     {/* Hero Section */}
                     <HeroSection scrollY={scrollY} />

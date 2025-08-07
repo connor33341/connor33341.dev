@@ -73,7 +73,12 @@ export function ContributionsSection({ scrollY }: ContributionsSectionProps) {
      */
 
     return (
-        <section ref={sectionRef} className="bg-[#f5f5f3] py-20 md:py-32 dark:bg-[#0d0d0d]" id="contributions">
+        <section ref={sectionRef} className="py-20 md:py-32" id="contributions" style={{
+            background: `
+                radial-gradient(circle at 50% 50%, var(--background) 0%, 
+                color-mix(in oklch, var(--background) 98%, var(--muted)) 100%)
+            `
+        }}>
             <div className="container mx-auto px-6">
                 <div className="mx-auto max-w-5xl">
                     <h2
