@@ -35,8 +35,21 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="build/index.css">
+    
+    <!-- Dark mode initialization script -->
+    <script>
+        // Check if theme preference exists in localStorage, default to dark
+        const theme = localStorage.getItem('theme') || 'dark';
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Set default if not already set
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
 </head>
-<body>
+<body class="dark:bg-[#252522]">
     <div id="root"></div>
 
     <!-- Main Script -->

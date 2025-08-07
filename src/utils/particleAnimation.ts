@@ -221,8 +221,8 @@ export class ParticleAnimation {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Slight motion blur for smoother appearance
-        this.ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+        // Dark background for better contrast with particles
+        this.ctx.fillStyle = 'rgba(37, 37, 34, 0.3)'; // Dark background with slight transparency
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Update and draw particles

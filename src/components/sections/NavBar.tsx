@@ -26,7 +26,7 @@ export function NavBar({ auth }: NavBarProps) {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(true); // Default to true for dark mode
 
     // Detect dark mode on initial load
     useEffect(() => {

@@ -94,8 +94,9 @@ const Home: React.FC = () => {
                 description="Welcome to Connor W's portfolio. Everything Developer specializing in backend, frontend, mobile and embedded applications."
                 url="https://connor33341.dev/"
                 tags={['home', 'portfolio', 'developer']}
+                image="https://avatars.githubusercontent.com/u/107011324?v=4"
             />
-            {isLoading ? (<div className="bg-background fixed inset-0 flex items-center justify-center">
+            {isLoading ? (<div className="bg-[#252522] fixed inset-0 flex items-center justify-center">
                 <canvas ref={canvasRef} className="absolute inset-0" />
             </div>) : (
                 <main className="overflow-hidden">
