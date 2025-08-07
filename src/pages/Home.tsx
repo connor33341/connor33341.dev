@@ -10,6 +10,7 @@ import { AboutSection } from '../components/sections/AboutSection';
 import { SkillsSection } from '../components/sections/SkillsSection';
 import { ProjectsSection } from '../components/sections/ProjectsSection';
 import { ContributionsSection } from '../components/sections/ContributionsSection';
+import { OrganizationsSection } from '../components/sections/OrganizationsSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
@@ -128,7 +129,7 @@ const Home: React.FC = () => {
                     <ContributionsSection scrollY={scrollY} />
 
                     {/* GitHub Organizations */}
-                    {/*<OrganizationsSection scrollY={scrollY} />*/}
+                    <OrganizationsSection scrollY={scrollY} />
 
                     {/* Contact */}
                     {/*<ContactSection scrollY={scrollY} />*/}
