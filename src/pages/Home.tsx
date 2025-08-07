@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { SEO } from '../components/SEO';
 import { useParticleAnimation } from '../utils/particleAnimation';
 import { useLoading } from '../contexts/LoadingContext';
+
+// Components
+import { SEO } from '../components/SEO';
+import { HeroSection } from '../components/sections/HeroSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
@@ -94,9 +97,12 @@ const Home: React.FC = () => {
             />
             {isLoading ? (<div className="bg-background fixed inset-0 flex items-center justify-center">
                 <canvas ref={canvasRef} className="absolute inset-0" />
-            </div>) : (<div>
-                <h1>Home</h1>
-            </div>)}
+            </div>) : (
+                <main className="overflow-hidden">
+                    {/* Hero Section */}
+                    <HeroSection scrollY={scrollY} />
+                </main>
+            )}
         </>
     );
 };

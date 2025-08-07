@@ -1,15 +1,10 @@
 import React from 'react';
+import { NavBar } from './sections/NavBar';
 
 const Header: React.FC = () => {
     return (
         <header>
-            <h1>Website</h1>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                </ul>
-            </nav>
+            <NavBar auth={{ user: null }} />
         </header>
     );
 };
