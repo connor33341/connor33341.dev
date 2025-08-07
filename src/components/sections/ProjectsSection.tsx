@@ -28,7 +28,12 @@ export function ProjectsSection({ scrollY }: ProjectsSectionProps) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setProjects(data);
+                // Ensure data is an array before setting it
+                if (Array.isArray(data)) {
+                    setProjects(data);
+                } else {
+                    throw new Error('Invalid data format: expected an array');
+                }
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to fetch projects');
                 console.error('Error fetching projects:', err);
