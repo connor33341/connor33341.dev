@@ -27,7 +27,13 @@ export function ContributionsSection({ scrollY }: ContributionsSectionProps) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setContributions(data);
+                // Ensure data is an array before setting it
+                if (Array.isArray(data)) {
+                    setContributions(data);
+                } else {
+                    throw new Error('Invalid data format: expected an array');
+                }
+                // setContributions(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to fetch contributions');
                 console.error('Error fetching contributions:', err);
