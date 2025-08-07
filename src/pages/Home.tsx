@@ -9,6 +9,7 @@ import { FeaturedLinksSection } from '../components/sections/FeaturedLinksSectio
 import { AboutSection } from '../components/sections/AboutSection';
 import { SkillsSection } from '../components/sections/SkillsSection';
 import { ProjectsSection } from '../components/sections/ProjectsSection';
+import { ContributionsSection } from '../components/sections/ContributionsSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
