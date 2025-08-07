@@ -3,10 +3,11 @@ import { usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import { SEO } from '../components/SEO';
 import { useParticleAnimation } from '../utils/particleAnimation';
+import { useLoading } from '../contexts/LoadingContext';
 
 const About: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
+    const { isLoading, setIsLoading } = useLoading();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Use the particle animation hook
@@ -72,6 +73,11 @@ const About: React.FC = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Reset loading state when component mounts
+    useEffect(() => {
+        setIsLoading(true);
+    }, [setIsLoading]);
+
     // Start loading animation
     useEffect(() => {
         if (!isLoading || !canvasRef.current) return;
@@ -80,7 +86,7 @@ const About: React.FC = () => {
             console.error('Failed to start animation:', error);
             setIsLoading(false); // Fall back to showing content immediately
         });
-    }, [isLoading, startAnimation]);
+    }, [isLoading, startAnimation, setIsLoading]);
     return (
         <>
             <SEO

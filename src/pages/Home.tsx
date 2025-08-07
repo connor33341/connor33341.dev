@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { SEO } from '../components/SEO';
 import { useParticleAnimation } from '../utils/particleAnimation';
+import { useLoading } from '../contexts/LoadingContext';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
-        const [isLoading, setIsLoading] = useState(true);
-        const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { isLoading, setIsLoading } = useLoading();
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     
         // Use the particle animation hook
         const { start: startAnimation } = useParticleAnimation(canvasRef, {
@@ -60,27 +61,30 @@ const Home: React.FC = () => {
             }
         });
     
-        // Track scroll position
-        useEffect(() => {
-            const handleScroll = () => {
-                setScrollY(window.scrollY);
-            };
-    
-            window.addEventListener('scroll', handleScroll);
-            return () => window.removeEventListener('scroll', handleScroll);
-        }, []);
-    
-        // Start loading animation
-        useEffect(() => {
-            if (!isLoading || !canvasRef.current) return;
-    
-            startAnimation().catch(error => {
-                console.error('Failed to start animation:', error);
-                setIsLoading(false); // Fall back to showing content immediately
-            });
-        }, [isLoading, startAnimation]);
+    // Track scroll position
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
 
-    return (
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Reset loading state when component mounts
+    useEffect(() => {
+        setIsLoading(true);
+    }, [setIsLoading]);
+
+    // Start loading animation
+    useEffect(() => {
+        if (!isLoading || !canvasRef.current) return;
+
+        startAnimation().catch(error => {
+            console.error('Failed to start animation:', error);
+            setIsLoading(false); // Fall back to showing content immediately
+        });
+    }, [isLoading, startAnimation, setIsLoading]);    return (
         <>
             <SEO 
                 title="Home - Connor W - Everything Developer"

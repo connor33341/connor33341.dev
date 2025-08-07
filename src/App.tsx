@@ -4,19 +4,30 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
+import { LoadingProvider, useLoading } from './contexts/LoadingContext';
 import './styles/App.scss';
+
+const AppContent: React.FC = () => {
+  const { isLoading } = useLoading();
+
+  return (
+    <div className="App">
+      {!isLoading && <Header />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      {!isLoading && <Footer />}
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
-      </div>
+      <LoadingProvider>
+        <AppContent />
+      </LoadingProvider>
     </Router>
   );
 };
