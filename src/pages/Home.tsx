@@ -5,65 +5,67 @@ import { useLoading } from '../contexts/LoadingContext';
 // Components
 import { SEO } from '../components/SEO';
 import { HeroSection } from '../components/sections/HeroSection';
+import { FeaturedLinksSection } from '../components/sections/FeaturedLinksSection';
+import { AboutSection } from '../components/sections/AboutSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
     const { isLoading, setIsLoading } = useLoading();
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    
-        // Use the particle animation hook
-        const { start: startAnimation } = useParticleAnimation(canvasRef, {
-            text: 'CW',
-            fontFamily: 'Inter',
-            colors: ['#8847BB', '#5E4290', '#F9BAEE'],
-            onComplete: () => {
+
+    // Use the particle animation hook
+    const { start: startAnimation } = useParticleAnimation(canvasRef, {
+        text: 'CW',
+        fontFamily: 'Inter',
+        colors: ['#8847BB', '#5E4290', '#F9BAEE'],
+        onComplete: () => {
+            setTimeout(() => {
+                setIsLoading(false);
+
                 setTimeout(() => {
-                    setIsLoading(false);
-    
-                    setTimeout(() => {
-                        if (!window.location.href.includes('#')) {
-                            return;
-                        }
-    
-                        const duration = 800;
-                        const offset = 0;
-    
-                        const element = document.getElementById(window.location.href.split('#')[1]);
-    
-                        if (element) {
-                            // Calculate where to scroll to
-                            const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
-                            const startPosition = window.pageYOffset;
-                            const distance = targetPosition - startPosition;
-    
-                            let startTime: number | null = null;
-    
-                            // Smooth scroll animation function
-                            const animation = (currentTime: number) => {
-                                if (startTime === null) startTime = currentTime;
-                                const timeElapsed = currentTime - startTime;
-                                const progress = Math.min(timeElapsed / duration, 1);
-    
-                                // Easing function - easeInOutCubic
-                                const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1);
-    
-                                window.scrollTo(0, startPosition + distance * ease(progress));
-    
-                                if (timeElapsed < duration) {
-                                    requestAnimationFrame(animation);
-                                }
-                            };
-    
-                            requestAnimationFrame(animation);
-                        }
-                    }, 100);
+                    if (!window.location.href.includes('#')) {
+                        return;
+                    }
+
+                    const duration = 800;
+                    const offset = 0;
+
+                    const element = document.getElementById(window.location.href.split('#')[1]);
+
+                    if (element) {
+                        // Calculate where to scroll to
+                        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
+                        const startPosition = window.pageYOffset;
+                        const distance = targetPosition - startPosition;
+
+                        let startTime: number | null = null;
+
+                        // Smooth scroll animation function
+                        const animation = (currentTime: number) => {
+                            if (startTime === null) startTime = currentTime;
+                            const timeElapsed = currentTime - startTime;
+                            const progress = Math.min(timeElapsed / duration, 1);
+
+                            // Easing function - easeInOutCubic
+                            const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1);
+
+                            window.scrollTo(0, startPosition + distance * ease(progress));
+
+                            if (timeElapsed < duration) {
+                                requestAnimationFrame(animation);
+                            }
+                        };
+
+                        requestAnimationFrame(animation);
+                    }
                 }, 100);
-            },
-            onFallback: (error) => {
-                console.warn('Failed to load font vectors, using fallback', error);
-            }
-        });
-    
+            }, 100);
+        },
+        onFallback: (error) => {
+            console.warn('Failed to load font vectors, using fallback', error);
+        }
+    });
+
     // Track scroll position
     useEffect(() => {
         const handleScroll = () => {
@@ -87,9 +89,9 @@ const Home: React.FC = () => {
             console.error('Failed to start animation:', error);
             setIsLoading(false); // Fall back to showing content immediately
         });
-    }, [isLoading, startAnimation, setIsLoading]);    return (
+    }, [isLoading, startAnimation, setIsLoading]); return (
         <>
-            <SEO 
+            <SEO
                 title="Home - Connor W - Everything Developer"
                 description="Welcome to Connor W's portfolio. Everything Developer specializing in backend, frontend, mobile and embedded applications."
                 url="https://connor33341.dev/"
@@ -100,8 +102,17 @@ const Home: React.FC = () => {
                 <canvas ref={canvasRef} className="absolute inset-0" />
             </div>) : (
                 <main className="overflow-hidden">
+
                     {/* Hero Section */}
                     <HeroSection scrollY={scrollY} />
+
+                    {/* Featured Links */}
+                    <FeaturedLinksSection scrollY={scrollY} />
+
+                    {/* About Me */}
+                    <AboutSection scrollY={scrollY} />
+
+                    
                 </main>
             )}
         </>
