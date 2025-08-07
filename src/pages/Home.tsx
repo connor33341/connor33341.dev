@@ -7,6 +7,7 @@ import { SEO } from '../components/SEO';
 import { HeroSection } from '../components/sections/HeroSection';
 import { FeaturedLinksSection } from '../components/sections/FeaturedLinksSection';
 import { AboutSection } from '../components/sections/AboutSection';
+import { SkillsSection } from '../components/sections/SkillsSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
@@ -112,7 +113,9 @@ const Home: React.FC = () => {
                     {/* About Me */}
                     <AboutSection scrollY={scrollY} />
 
-                    
+                    {/* Skills & Technologies */}
+                    <SkillsSection scrollY={scrollY} />
+
                 </main>
             )}
         </>
