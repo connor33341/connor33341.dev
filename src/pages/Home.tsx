@@ -8,6 +8,7 @@ import { HeroSection } from '../components/sections/HeroSection';
 import { FeaturedLinksSection } from '../components/sections/FeaturedLinksSection';
 import { AboutSection } from '../components/sections/AboutSection';
 import { SkillsSection } from '../components/sections/SkillsSection';
+import { ProjectsSection } from '../components/sections/ProjectsSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
@@ -116,6 +117,10 @@ const Home: React.FC = () => {
                     {/* Skills & Technologies */}
                     <SkillsSection scrollY={scrollY} />
 
+                    {/* Projects */}
+                    <ProjectsSection scrollY={scrollY} />
+
+                    
                 </main>
             )}
         </>
