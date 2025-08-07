@@ -1,6 +1,8 @@
 import * as esbuild from 'esbuild'
-import { readFileSync } from 'fs'
-import { resolve } from 'path'
+import { readFileSync, existsSync } from 'fs'
+import { resolve, join, extname } from 'path'
+import { createServer, request } from 'http'
+import { parse } from 'url'
 import tailwindcss from '@tailwindcss/postcss'
 import autoprefixer from 'autoprefixer'
 import postcss from 'postcss'
@@ -102,14 +104,61 @@ const config: esbuild.BuildOptions = {
 if (isDev && isWatch) {
   const ctx = await esbuild.context(config)
   
-  // Start dev server
-  const { host, port } = await ctx.serve({
+  // Start esbuild dev server
+  const result = await ctx.serve({
     servedir: 'public',
-    port: 3000,
+    port: 8080, // esbuild server on different port
     host: 'localhost',
   })
   
-  console.log(`🚀 Dev server running at http://localhost:${port}`)
+  console.log(`📦 esbuild server running on port ${result.port}`)
+  
+  // Create custom HTTP server with SPA fallback
+  const server = createServer((req, res) => {
+    const url = parse(req.url || '/', true)
+    const pathname = url.pathname || '/'
+    
+    // Proxy request to esbuild server
+    const proxyReq = request({
+      hostname: 'localhost',
+      port: result.port,
+      path: pathname,
+      method: req.method,
+      headers: req.headers,
+    }, (proxyRes) => {
+      if (proxyRes.statusCode === 404 && !extname(pathname)) {
+        // If it's a 404 and the path doesn't have an extension (likely a route),
+        // serve index.html instead
+        const indexReq = request({
+          hostname: 'localhost',
+          port: result.port,
+          path: '/index.html',
+          method: 'GET',
+        }, (indexRes) => {
+          res.writeHead(200, { 'Content-Type': 'text/html' })
+          indexRes.pipe(res)
+        })
+        indexReq.end()
+      } else {
+        // Forward the response from esbuild server
+        res.writeHead(proxyRes.statusCode || 200, proxyRes.headers)
+        proxyRes.pipe(res)
+      }
+    })
+    
+    proxyReq.on('error', (err) => {
+      console.error('Proxy error:', err)
+      res.writeHead(500, { 'Content-Type': 'text/plain' })
+      res.end('Internal Server Error')
+    })
+    
+    req.pipe(proxyReq)
+  })
+  
+  const port = 3000
+  server.listen(port, () => {
+    console.log(`🚀 Dev server running at http://localhost:${port}`)
+  })
   
   // Watch for changes
   await ctx.watch()
