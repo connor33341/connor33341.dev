@@ -11,6 +11,7 @@ import { SkillsSection } from '../components/sections/SkillsSection';
 import { ProjectsSection } from '../components/sections/ProjectsSection';
 import { ContributionsSection } from '../components/sections/ContributionsSection';
 import { OrganizationsSection } from '../components/sections/OrganizationsSection';
+import { ContactSection } from '../components/sections/ContactSection';
 
 const Home: React.FC = () => {
     const [scrollY, setScrollY] = useState(0);
@@ -132,7 +133,7 @@ const Home: React.FC = () => {
                     <OrganizationsSection scrollY={scrollY} />
 
                     {/* Contact */}
-                    {/*<ContactSection scrollY={scrollY} />*/}
+                    <ContactSection scrollY={scrollY} />
                 </main>
             )}
         </>
