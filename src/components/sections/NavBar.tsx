@@ -199,11 +199,11 @@ export function NavBar({ auth }: NavBarProps) {
                                 Apps
                             </Link>
                             <Link
-                                href={route('public-polls.index')}
+                                href="https://legacy.connor33341.dev"
                                 className="py-2 text-sm transition-colors hover:text-[#8847BB] dark:hover:text-[#F9BAEE]"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                Polls
+                                Legacy Site
                             </Link>
                             <Link
                                 href={route('availability')}
